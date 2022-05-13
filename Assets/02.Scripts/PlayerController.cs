@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
 {
 
     private Rigidbody2D _theRigid;
-
+    [SerializeField] private float _gravityScale = 8;
 
     #region 이동 관련 속성
     [Header("이동 관련 속성")]
@@ -23,8 +23,29 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask _groundLayerMask;
     [SerializeField] private float _playerDistance;
     [SerializeField] private int _maxPlayerJumpCount;
+    [SerializeField] private bool _isUpsideDown = false;
+    Vector2 _distance = Vector2.down;
     private int _currentPlayerJumpCount = 0;
     private bool _isPlayerJump = false;
+    #endregion
+
+    #region 프로퍼티
+
+    public bool IsUpsideDown
+    {
+        get
+        {
+            return _isUpsideDown;
+        }
+        set
+        {
+            _isUpsideDown = value;
+
+            _theRigid.gravityScale = _isUpsideDown ? (_gravityScale * -1) : _gravityScale;
+            _distance = _isUpsideDown ? Vector2.up : Vector2.down;
+            _playerJumpTransform.localPosition = new Vector2(0, (_isUpsideDown ? 0.5f : -0.5f));
+        }
+    }
     #endregion
 
     void Start() => _theRigid = GetComponent<Rigidbody2D>();
@@ -34,6 +55,11 @@ public class PlayerController : MonoBehaviour
         Move();
         Jump();
         Dash();
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            IsUpsideDown = !IsUpsideDown;
+        }
     }
 
     void FixedUpdate() => FixedMove();
@@ -59,7 +85,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!Input.GetKeyDown(KeyCode.LeftAlt)) return;
 
-        _isPlayerJump = !Physics2D.Raycast(_playerJumpTransform.position, Vector2.down, _playerDistance, _groundLayerMask);
+        _isPlayerJump = !Physics2D.Raycast(_playerJumpTransform.position, _distance, _playerDistance, _groundLayerMask);
 
         if (!_isPlayerJump)
         {
@@ -70,7 +96,7 @@ public class PlayerController : MonoBehaviour
         {
             _currentPlayerJumpCount--;
             _theRigid.velocity = new Vector2(_theRigid.velocity.x, 0);
-            _theRigid.AddForce(Vector2.up * _playerJumpPower, ForceMode2D.Impulse);
+            _theRigid.AddForce(_distance * -1 * _playerJumpPower, ForceMode2D.Impulse);
         }
     }
     /// <summary>
