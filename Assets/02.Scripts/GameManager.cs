@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
-    public static GameManager instance;
-
-    public PartyController _partyController { get; set; }
-    public JoyStick _joyStick { get; set; }
-
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        if (instance == null)
-            instance = this;
+        
+    }
 
-        _partyController = FindObjectOfType<PartyController>();
-        _joyStick = FindObjectOfType<JoyStick>();
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
