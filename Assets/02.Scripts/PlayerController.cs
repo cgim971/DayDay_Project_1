@@ -16,6 +16,13 @@ public class PlayerController : MonoBehaviour
     {
         get { return _angle; }
     }
+
+    private float _attack;
+    public float Attack
+    {
+        get { return _attack; }
+    }
+
     [SerializeField] private List<SkillCase> _skillCases = new List<SkillCase>();
 
     private void Start()
