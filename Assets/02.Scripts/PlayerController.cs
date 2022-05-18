@@ -12,6 +12,11 @@ public class PlayerController : MonoBehaviour
 
     Vector2 _mousePos;
     float _angle;
+    public float Angle
+    {
+        get { return _angle; }
+    }
+    [SerializeField] private List<SkillCase> _skillCases = new List<SkillCase>();
 
     private void Start()
     {
@@ -51,41 +56,33 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator UseMouseLeftBtn()
     {
-        float delay = 0;
-
         while (true)
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
 
-            Debug.Log("좌클릭");
-
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(_skillCases[0].UseSkill());
         }
     }
     private IEnumerator UseMouseRightBtn()
     {
-        float delay = 0;
-
         while (true)
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(1));
 
             Debug.Log("우클릭");
 
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(_skillCases[1].UseSkill());
         }
     }
     private IEnumerator UseSpaceBtn()
     {
-        float delay = 0;
-
         while (true)
         {
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
 
             Debug.Log("스페이스");
 
-            yield return new WaitForSeconds(delay);
+            yield return new WaitForSeconds(_skillCases[2].UseSkill());
         }
     }
 }
