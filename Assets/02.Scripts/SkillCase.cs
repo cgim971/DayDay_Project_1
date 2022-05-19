@@ -20,6 +20,8 @@ public class SkillCase : MonoBehaviour
     /// <returns></returns>
     public float UseSkill()
     {
+        if (_skill == null) return 0f;
+        GameManager._instance._playerController.Attack = _skill.attackPower;
         float delay;
         _skill.UseSkill(out delay);
 

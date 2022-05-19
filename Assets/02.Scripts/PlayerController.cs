@@ -5,6 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D _rigid = null;
+    [SerializeField] private float _hp = 10;
+
+    public float Hp
+    {
+        get { return _hp; }
+        set
+        {
+            _hp = value;
+            Debug.Log(_hp);
+        }
+    }
 
     private Vector2 _posAmount;
 
@@ -21,6 +32,7 @@ public class PlayerController : MonoBehaviour
     public float Attack
     {
         get { return _attack; }
+        set { _attack = value; }
     }
 
     [SerializeField] private List<SkillCase> _skillCases = new List<SkillCase>();
@@ -92,4 +104,5 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(_skillCases[2].UseSkill());
         }
     }
+
 }

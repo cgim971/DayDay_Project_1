@@ -31,6 +31,7 @@ public class WarrirSkill : SkillBase
     float radius = 2f;
     void WidldingSword()
     {
+
         PlayerController playerTransform = GameManager._instance._playerController;
         GameObject newSlash = Instantiate(slashObj, null);
 
@@ -40,7 +41,7 @@ public class WarrirSkill : SkillBase
         newSlash.transform.position = new Vector2(playerTransform.transform.position.x + posX, playerTransform.transform.position.y + posY);
         newSlash.transform.rotation = Quaternion.Euler(0f, 0f, playerTransform.Angle);
 
-        Destroy(newSlash, 1f);
+        Destroy(newSlash, 0.2f);
     }
     void ThrowingDagger()
     {

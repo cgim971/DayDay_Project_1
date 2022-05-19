@@ -8,7 +8,7 @@ public class SkillBase : ScriptableObject
     public SkillWarrirType _skillWarrirType;
 
     public float _delay;
-
+    public float attackPower;
     public virtual void UseSkill(out float delay)
     {
         delay = _delay;
