@@ -19,5 +19,4 @@ public class FindTarget : MonoBehaviour
             transform.GetComponentInParent<MonsterBase>()._target = null;
         }
     }
-
 }

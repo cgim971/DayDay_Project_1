@@ -6,8 +6,6 @@ public class MonsterBase : MonoBehaviour
 {
     [SerializeField] private float _hp = 5;
     [SerializeField] private float _speed = 5f;
-    [SerializeField] private Vector2 maxPos;
-    [SerializeField] private Vector2 minPos;
     [SerializeField] private float damage = 0.5f;
 
     public float Damage
@@ -40,24 +38,6 @@ public class MonsterBase : MonoBehaviour
 
     private void Update()
     {
-
-        if (transform.position.x > maxPos.x)
-        {
-            pos = Vector2.left;
-        }
-        else if (transform.position.x < minPos.x)
-        {
-            pos = Vector2.right;
-        }
-        else if (transform.position.y > maxPos.y)
-        {
-            pos = Vector2.down;
-        }
-        else if (transform.position.y < minPos.y)
-        {
-            pos = Vector2.up;
-        }
-
         if (_target == null)
         {
             if (time < 0)
@@ -70,6 +50,10 @@ public class MonsterBase : MonoBehaviour
         else
         {
             pos = _target.transform.position - transform.position;
+        }
+        if (pos.x != 0)
+        {
+            transform.localScale = new Vector3(pos.x > 0 ? 1 : -1, 1, 1);
         }
         pos.Normalize();
         _rigid.velocity = pos * _speed;

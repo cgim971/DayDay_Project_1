@@ -45,7 +45,19 @@ public class WarrirSkill : SkillBase
     }
     void ThrowingDagger()
     {
+        PlayerController playerTransform = GameManager._instance._playerController;
+        GameObject newDagger = Instantiate(slashObj, null);
 
+        float posX = -Mathf.Sin((playerTransform.Angle - 90) * Mathf.Deg2Rad) * radius;
+        float posY = Mathf.Cos((playerTransform.Angle - 90) * Mathf.Deg2Rad) * radius;
+
+        newDagger.transform.position = playerTransform.transform.position;
+        newDagger.transform.rotation = Quaternion.Euler(0f, 0f, playerTransform.Angle - 90);
+
+        newDagger.GetComponent<Rigidbody2D>().velocity = new Vector2(posX, posY) * 10f;
+        newDagger.GetComponent<Attack>()._isDisable = true;
+
+        Destroy(newDagger, 2f);
     }
     void Recovery()
     {

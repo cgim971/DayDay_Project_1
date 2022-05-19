@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: WarrirSkill_1
   m_EditorClassIdentifier: 
   _skillWarrirType: 3
-  _delay: 2
-  slashObj: {fileID: 0}
+  _delay: 0.1
+  attackPower: 0.8
+  slashObj: {fileID: 6856252606677923873, guid: 45b3521593433b94eb184bda69f5f4e5, type: 3}

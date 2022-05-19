@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,11 +10,14 @@ public class PlayerController : MonoBehaviour
 
     public float Hp
     {
-        get { return _hp; }
+        get
+        {
+            return _hp;
+        }
         set
         {
             _hp = value;
-            Debug.Log(_hp);
+            hpslider.value = _hp;
         }
     }
 
@@ -35,11 +39,17 @@ public class PlayerController : MonoBehaviour
         set { _attack = value; }
     }
 
+    [SerializeField] private Slider hpslider;
+    [SerializeField] private Slider manaslider;
+
     [SerializeField] private List<SkillCase> _skillCases = new List<SkillCase>();
 
     private void Awake()
     {
         DontDestroyOnLoad(this);
+
+        hpslider.maxValue = _hp;
+        Hp = _hp;
     }
 
     public void SetSpawn(Vector2 pos)
@@ -55,11 +65,11 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(UseMouseRightBtn());
         StartCoroutine(UseSpaceBtn());
     }
+
     private void Update()
     {
         Move();
         Look();
-
     }
     private void Look()
     {
@@ -98,8 +108,6 @@ public class PlayerController : MonoBehaviour
         {
             yield return new WaitUntil(() => Input.GetMouseButtonDown(1));
 
-            Debug.Log("우클릭");
-
             yield return new WaitForSeconds(_skillCases[1].UseSkill());
         }
     }
@@ -108,8 +116,6 @@ public class PlayerController : MonoBehaviour
         while (true)
         {
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-
-            Debug.Log("스페이스");
 
             yield return new WaitForSeconds(_skillCases[2].UseSkill());
         }
