@@ -37,6 +37,16 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private List<SkillCase> _skillCases = new List<SkillCase>();
 
+    private void Awake()
+    {
+        DontDestroyOnLoad(this);
+    }
+
+    public void SetSpawn(Vector2 pos)
+    {
+        transform.position = pos;
+    }
+
     private void Start()
     {
         _rigid = GetComponent<Rigidbody2D>();
